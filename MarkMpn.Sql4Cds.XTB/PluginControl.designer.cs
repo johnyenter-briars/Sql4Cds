@@ -215,7 +215,7 @@
             this.tsbExecute.Name = "tsbExecute";
             this.tsbExecute.Size = new System.Drawing.Size(67, 22);
             this.tsbExecute.Text = "Execute";
-            this.tsbExecute.ToolTipText = "Execute Selected Query (F5)";
+            this.tsbExecute.ToolTipText = "Execute Selected Query (F5 or Ctrl+Enter)";
             this.tsbExecute.Click += new System.EventHandler(this.tsbExecute_Click);
             // 
             // tsbStop

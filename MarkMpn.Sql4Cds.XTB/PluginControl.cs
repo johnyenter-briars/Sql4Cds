@@ -539,7 +539,7 @@ namespace MarkMpn.Sql4Cds.XTB
                 tsbIncludeFetchXml.PerformClick();
             else if (keyData == (Keys.Control | Keys.U))
                 tscbConnection.Focus();
-            else if (keyData == Keys.F5 || keyData == (Keys.Control | Keys.E))
+            else if (keyData == Keys.F5 || keyData == (Keys.Control | Keys.E) || keyData == (Keys.Control | Keys.Enter))
                 tsbExecute.PerformClick();
             else if (keyData == Keys.F4)
                 dockPanel.ActiveAutoHideContent = _properties;
