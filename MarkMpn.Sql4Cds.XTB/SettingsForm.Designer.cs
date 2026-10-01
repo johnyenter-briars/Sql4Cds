@@ -77,6 +77,7 @@
             this.label16 = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.vimModeCheckBox = new System.Windows.Forms.CheckBox();
             this.rememberSessionConnectionsCheckBox = new System.Windows.Forms.CheckBox();
             this.label20 = new System.Windows.Forms.Label();
             this.fontSizeNumericUpDown = new System.Windows.Forms.NumericUpDown();
@@ -700,6 +701,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.vimModeCheckBox);
             this.tabPage3.Controls.Add(this.rememberSessionConnectionsCheckBox);
             this.tabPage3.Controls.Add(this.label20);
             this.tabPage3.Controls.Add(this.fontSizeNumericUpDown);
@@ -716,6 +718,16 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Editor";
             this.tabPage3.UseVisualStyleBackColor = true;
+            //
+            // vimModeCheckBox
+            //
+            this.vimModeCheckBox.AutoSize = true;
+            this.vimModeCheckBox.Location = new System.Drawing.Point(6, 176);
+            this.vimModeCheckBox.Name = "vimModeCheckBox";
+            this.vimModeCheckBox.Size = new System.Drawing.Size(220, 17);
+            this.vimModeCheckBox.TabIndex = 11;
+            this.vimModeCheckBox.Text = "Enable Vim keys in SQL query editor";
+            this.vimModeCheckBox.UseVisualStyleBackColor = true;
             // 
             // rememberSessionConnectionsCheckBox
             // 
@@ -1228,6 +1240,7 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.CheckBox vimModeCheckBox;
         private System.Windows.Forms.CheckBox rememberSessionCheckbox;
         private System.Windows.Forms.PictureBox bulkDeleteHelp;
         private System.Windows.Forms.PictureBox pictureBox2;

@@ -117,6 +117,8 @@ namespace MarkMpn.Sql4Cds.XTB
         private readonly PluginControl _pluginControl;
         private readonly TelemetryClient _ai;
         private readonly Scintilla _editor;
+        private readonly VimEditor _vimEditor;
+        private readonly ToolStripStatusLabel _vimModeLabel;
         private readonly Action<string> _log;
         private readonly PropertiesWindow _properties;
         private int _maxLineNumberCharLength;
@@ -164,6 +166,13 @@ namespace MarkMpn.Sql4Cds.XTB
             ShowFetchXML = showFetchXml;
             DataSources = dataSources;
             _editor = CreateSqlEditor();
+            _vimModeLabel = new ToolStripStatusLabel { Visible = Settings.Instance.VimMode };
+            statusStrip.Items.Insert(1, _vimModeLabel);
+            _vimEditor = new VimEditor(_editor, mode =>
+            {
+                _vimModeLabel.Visible = mode != null;
+                _vimModeLabel.Text = mode;
+            });
             _autocomplete = CreateAutocomplete();
             _pluginControl = pluginControl;
             _ai = ai;
@@ -215,6 +224,7 @@ namespace MarkMpn.Sql4Cds.XTB
         public override void SettingsChanged()
         {
             base.SettingsChanged();
+            _vimEditor.SetEnabled(Settings.Instance.VimMode);
 
             // Update all styles on the editor to use the new font
             foreach (var style in _editor.Styles)
@@ -441,6 +451,13 @@ namespace MarkMpn.Sql4Cds.XTB
 
             scintilla.KeyDown += (s, e) =>
             {
+                if (e.Handled)
+                    return;
+
+                if (_vimEditor != null && _vimEditor.Enabled && !_vimEditor.IsInsertMode && !e.Control && !e.Alt &&
+                    !(e.KeyCode == Keys.Escape && _findReplace != null))
+                    return;
+
                 if (e.KeyCode == Keys.Back && scintilla.SelectedText == String.Empty)
                 {
                     var lineIndex = scintilla.LineFromPosition(scintilla.SelectionStart);
