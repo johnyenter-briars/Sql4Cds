@@ -172,6 +172,8 @@ namespace MarkMpn.Sql4Cds.XTB
             {
                 _vimModeLabel.Visible = mode != null;
                 _vimModeLabel.Text = mode;
+                if (mode != "INSERT")
+                    _autocomplete?.Close();
             });
             _autocomplete = CreateAutocomplete();
             _pluginControl = pluginControl;
@@ -661,6 +663,9 @@ namespace MarkMpn.Sql4Cds.XTB
 
             public IEnumerable<AutocompleteItem> GetItems(bool forced)
             { 
+                if (!forced && _control._vimEditor.Enabled && !_control._vimEditor.IsInsertMode)
+                    yield break;
+
                 if (_control._con == null)
                     yield break;
 
