@@ -330,13 +330,17 @@ namespace MarkMpn.Sql4Cds.XTB
                 var first = Math.Min(_editor.LineFromPosition(_visualAnchor), _editor.LineFromPosition(_visualPosition));
                 var last = Math.Max(_editor.LineFromPosition(_visualAnchor), _editor.LineFromPosition(_visualPosition));
                 var line = _editor.Lines[last];
-                _editor.SetSelection(_editor.Lines[first].Position, line.Position + line.Length);
+                var start = _editor.Lines[first].Position;
+                var end = line.Position + line.Length;
+                _editor.SetSelection(_visualPosition >= _visualAnchor ? end : start,
+                    _visualPosition >= _visualAnchor ? start : end);
             }
             else
             {
                 var start = Math.Min(_visualAnchor, _visualPosition);
                 var end = Math.Min(_editor.TextLength, Math.Max(_visualAnchor, _visualPosition) + 1);
-                _editor.SetSelection(start, end);
+                _editor.SetSelection(_visualPosition >= _visualAnchor ? end : start,
+                    _visualPosition >= _visualAnchor ? start : end);
             }
         }
 
