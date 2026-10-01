@@ -52,6 +52,7 @@ namespace MarkMpn.Sql4Cds.XTB
             schemaColumnOrderingCheckbox.Checked = settings.ColumnOrdering == ColumnOrdering.Strict;
             fontComboBox.SelectedValue = Settings.Instance.EditorFontName;
             fontSizeNumericUpDown.Value = Settings.Instance.EditorFontSize;
+            editorZoomNumericUpDown.Value = settings.EditorZoom;
             vimModeCheckBox.Checked = settings.VimMode;
             aiProviderComboBox.SelectedIndex = settings.AIProvider.HasValue ? (int)settings.AIProvider.Value + 1 : 0;
             aiEndpointTextBox.Text = settings.AIEndpoint;
@@ -143,6 +144,7 @@ namespace MarkMpn.Sql4Cds.XTB
                 _settings.ColumnOrdering = schemaColumnOrderingCheckbox.Checked ? ColumnOrdering.Strict : ColumnOrdering.Alphabetical;
                 _settings.EditorFontName = (string)fontComboBox.SelectedValue ?? "Courier New";
                 _settings.EditorFontSize = (int) fontSizeNumericUpDown.Value;
+                _settings.EditorZoom = (int) editorZoomNumericUpDown.Value;
                 _settings.VimMode = vimModeCheckBox.Checked;
                 _settings.AIProvider = aiProviderComboBox.SelectedIndex == 0 ? null : (AIProvider)aiProviderComboBox.SelectedIndex - 1;
                 _settings.AIEndpoint = aiEndpointTextBox.Text;

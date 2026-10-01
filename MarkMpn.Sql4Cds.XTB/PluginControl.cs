@@ -650,6 +650,17 @@ namespace MarkMpn.Sql4Cds.XTB
             }
         }
 
+        internal void SetEditorZoom(int zoom)
+        {
+            if (Settings.Instance.EditorZoom == zoom)
+                return;
+
+            Settings.Instance.EditorZoom = zoom;
+            foreach (var query in dockPanel.Contents.OfType<SqlQueryControl>())
+                query.SetEditorZoom(zoom);
+            SettingsManager.Instance.Save(_plugin.GetType(), Settings.Instance);
+        }
+
         private void SaveSettings()
         {
             if (Settings.Instance.RememberSession)

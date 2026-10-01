@@ -77,6 +77,8 @@
             this.label16 = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.editorZoomLabel = new System.Windows.Forms.Label();
+            this.editorZoomNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.vimModeCheckBox = new System.Windows.Forms.CheckBox();
             this.rememberSessionConnectionsCheckBox = new System.Windows.Forms.CheckBox();
             this.label20 = new System.Windows.Forms.Label();
@@ -135,6 +137,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.insertWarnThresholdUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.editorZoomNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fontSizeNumericUpDown)).BeginInit();
             this.tabPage6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.resultsGridFontSizeNumericUpDown)).BeginInit();
@@ -701,6 +704,8 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.editorZoomLabel);
+            this.tabPage3.Controls.Add(this.editorZoomNumericUpDown);
             this.tabPage3.Controls.Add(this.vimModeCheckBox);
             this.tabPage3.Controls.Add(this.rememberSessionConnectionsCheckBox);
             this.tabPage3.Controls.Add(this.label20);
@@ -718,6 +723,24 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Editor";
             this.tabPage3.UseVisualStyleBackColor = true;
+            //
+            // editorZoomLabel
+            //
+            this.editorZoomLabel.AutoSize = true;
+            this.editorZoomLabel.Location = new System.Drawing.Point(6, 212);
+            this.editorZoomLabel.Name = "editorZoomLabel";
+            this.editorZoomLabel.Size = new System.Drawing.Size(134, 13);
+            this.editorZoomLabel.TabIndex = 12;
+            this.editorZoomLabel.Text = "Editor Zoom (0 = default)";
+            //
+            // editorZoomNumericUpDown
+            //
+            this.editorZoomNumericUpDown.Location = new System.Drawing.Point(9, 228);
+            this.editorZoomNumericUpDown.Maximum = new decimal(new int[] { 20, 0, 0, 0 });
+            this.editorZoomNumericUpDown.Minimum = new decimal(new int[] { 10, 0, 0, -2147483648 });
+            this.editorZoomNumericUpDown.Name = "editorZoomNumericUpDown";
+            this.editorZoomNumericUpDown.Size = new System.Drawing.Size(50, 20);
+            this.editorZoomNumericUpDown.TabIndex = 13;
             //
             // vimModeCheckBox
             //
@@ -1188,6 +1211,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.editorZoomNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.fontSizeNumericUpDown)).EndInit();
             this.tabPage6.ResumeLayout(false);
             this.tabPage6.PerformLayout();
@@ -1240,6 +1264,8 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.Label editorZoomLabel;
+        private System.Windows.Forms.NumericUpDown editorZoomNumericUpDown;
         private System.Windows.Forms.CheckBox vimModeCheckBox;
         private System.Windows.Forms.CheckBox rememberSessionCheckbox;
         private System.Windows.Forms.PictureBox bulkDeleteHelp;

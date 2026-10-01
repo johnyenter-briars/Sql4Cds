@@ -177,6 +177,7 @@ namespace MarkMpn.Sql4Cds.XTB
             });
             _autocomplete = CreateAutocomplete();
             _pluginControl = pluginControl;
+            _editor.ZoomChanged += (s, e) => _pluginControl.SetEditorZoom(_editor.Zoom);
             _ai = ai;
             _log = log;
             _properties = properties;
@@ -227,6 +228,7 @@ namespace MarkMpn.Sql4Cds.XTB
         {
             base.SettingsChanged();
             _vimEditor.SetEnabled(Settings.Instance.VimMode);
+            SetEditorZoom(Settings.Instance.EditorZoom);
 
             // Update all styles on the editor to use the new font
             foreach (var style in _editor.Styles)
@@ -417,6 +419,7 @@ namespace MarkMpn.Sql4Cds.XTB
         private Scintilla CreateSqlEditor()
         {
             var scintilla = CreateEditor();
+            scintilla.Zoom = Settings.Instance.EditorZoom;
 
             // Set the SQL Lexer
             scintilla.Lexer = Lexer.Sql;
@@ -600,6 +603,12 @@ namespace MarkMpn.Sql4Cds.XTB
             scintilla.GotFocus += CheckForNewVersion;
 
             return scintilla;
+        }
+
+        internal void SetEditorZoom(int zoom)
+        {
+            if (_editor.Zoom != zoom)
+                _editor.Zoom = zoom;
         }
 
         private void ShowFindControl()

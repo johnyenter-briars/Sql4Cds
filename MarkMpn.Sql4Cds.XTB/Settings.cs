@@ -67,6 +67,8 @@ namespace MarkMpn.Sql4Cds.XTB
 
         public int EditorFontSize { get; set; } = 10;
 
+        public int EditorZoom { get; set; }
+
         public bool VimMode { get; set; }
 
         public bool AllowCopilotSelectQueries { get; set; }
