@@ -521,7 +521,7 @@ namespace MarkMpn.Sql4Cds.XTB
         private void OpenLine(bool above)
         {
             var line = _editor.Lines[_editor.LineFromPosition(_editor.CurrentPosition)];
-            var position = above ? line.Position : line.Position + line.Length;
+            var position = above ? line.Position : ContentEnd(line);
             var newline = _editor.EolMode == Eol.CrLf ? "\r\n" : _editor.EolMode == Eol.Cr ? "\r" : "\n";
             _editor.InsertText(position, newline);
             SetPosition(above ? position : position + newline.Length);
@@ -546,24 +546,46 @@ namespace MarkMpn.Sql4Cds.XTB
             var start = _editor.CurrentPosition;
             var linewise = motion == 'j' || motion == 'k' || motion == 'G' || motion == 'g';
             var inclusive = motion == '$' || motion == 'e' || motion == 'E';
-            switch (motion)
+            var changeWord = operation == 'c' && (motion == 'w' || motion == 'W') &&
+                start < _editor.TextLength && !Char.IsWhiteSpace((char)_editor.GetCharAt(start));
+            if (changeWord)
             {
-                case 'h': Move(-count); break;
-                case 'l': Move(count); break;
-                case 'j': MoveLine(count); break;
-                case 'k': MoveLine(-count); break;
-                case 'w': MoveWord(count); break;
-                case 'b': MoveWord(-count); break;
-                case 'e': MoveWordEnd(count); break;
-                case 'W': MoveWord(count, true); break;
-                case 'B': MoveWord(-count, true); break;
-                case 'E': MoveWordEnd(count, true); break;
-                case '0': MoveToLineBoundary(false); break;
-                case '^': MoveToFirstNonBlank(); break;
-                case '$': MoveToLineBoundary(true); break;
-                case 'G': GoToLine(_editor.Lines.Count - 1); break;
-                case 'g': GoToLine(0); break;
-                default: return;
+                if (count > 1)
+                    MoveWord(count - 1, motion == 'W');
+
+                var position = _editor.CurrentPosition;
+                if (position < _editor.TextLength)
+                {
+                    var wordCharacter = IsWordCharacter((char)_editor.GetCharAt(position));
+                    while (position < _editor.TextLength &&
+                        (motion == 'W' ? !Char.IsWhiteSpace((char)_editor.GetCharAt(position)) :
+                            !Char.IsWhiteSpace((char)_editor.GetCharAt(position)) &&
+                            IsWordCharacter((char)_editor.GetCharAt(position)) == wordCharacter))
+                        position++;
+                }
+                SetPosition(position);
+            }
+            else
+            {
+                switch (motion)
+                {
+                    case 'h': Move(-count); break;
+                    case 'l': Move(count); break;
+                    case 'j': MoveLine(count); break;
+                    case 'k': MoveLine(-count); break;
+                    case 'w': MoveWord(count); break;
+                    case 'b': MoveWord(-count); break;
+                    case 'e': MoveWordEnd(count); break;
+                    case 'W': MoveWord(count, true); break;
+                    case 'B': MoveWord(-count, true); break;
+                    case 'E': MoveWordEnd(count, true); break;
+                    case '0': MoveToLineBoundary(false); break;
+                    case '^': MoveToFirstNonBlank(); break;
+                    case '$': MoveToLineBoundary(true); break;
+                    case 'G': GoToLine(_editor.Lines.Count - 1); break;
+                    case 'g': GoToLine(0); break;
+                    default: return;
+                }
             }
 
             var target = _editor.CurrentPosition;
